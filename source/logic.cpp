@@ -689,7 +689,7 @@ void UpdateHelpers() {
     SilverScale     = ProgressiveScale >= 1;
     GoldScale       = ProgressiveScale >= 2;
     AdultsWallet    = ProgressiveWallet >= 1;
-    BiggoronSword   = BiggoronSword || ProgressiveGiantKnife >= 2;
+    BiggoronSword   = BiggoronSword || ProgressiveGiantKnife >= 1;
 
     ScarecrowSong    = ScarecrowSong || FreeScarecrow || (ChildScarecrow && AdultScarecrow);
     Scarecrow        = Hookshot && CanPlay(ScarecrowSong);
