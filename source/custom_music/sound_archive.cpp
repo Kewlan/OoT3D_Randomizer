@@ -157,7 +157,6 @@ SoundArchive::SoundArchive(FS_Archive archive_, const std::string& filePath_) {
         rawFiles.push_back(br.ReadBytes(fileRefs[i].size));
     }
 
-    br.Close();
     init = true;
 
     newFiles = rawFiles;
@@ -267,7 +266,8 @@ void SoundArchive::ReplaceSeq(FS_Archive archive_, u16 fileIndex, SequenceData& 
 }
 
 void SoundArchive::Write(FS_Archive archive_, const std::string& filePath_) {
-    BinaryDataWriter bw(archive_, filePath_);
+    // Default sound archive is around 7 MB. To avoid large reallocations, expect 8 MB.
+    BinaryDataWriter bw(8'000'000);
 
     if (!bw.SuccessfullyInitialized()) {
         return;
@@ -290,7 +290,8 @@ void SoundArchive::Write(FS_Archive archive_, const std::string& filePath_) {
 
     // File Block
     bw.position = sarHeader.blockOffsets[FILE_BLOCK].offset;
-    bw.Write(std::vector<char>{ 'F', 'I', 'L', 'E' });
+    std::vector<char> magic{ 'F', 'I', 'L', 'E' };
+    bw.Write(magic);
     bw.position += 4;
     u32 offsetStartPos = bw.position;
     bw.position += 24;
@@ -345,5 +346,5 @@ void SoundArchive::Write(FS_Archive archive_, const std::string& filePath_) {
     bw.position = 0xC;
     bw.Write(sarHeader.blockOffsets[FILE_BLOCK].offset + fileBlockSize);
 
-    bw.Close();
+    bw.CreateFile(archive_, filePath_);
 }

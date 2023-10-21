@@ -6,7 +6,6 @@
 
 class BinaryDataHandler {
   public:
-    void Close();
     bool SuccessfullyInitialized();
 
     u32 position = 0;
@@ -18,6 +17,7 @@ class BinaryDataHandler {
     bool init = false;
 
     Handle fsHandle = 0;
+    std::vector<u8> rawBytes;
 };
 
 class BinaryDataReader : public BinaryDataHandler {
@@ -43,17 +43,26 @@ class BinaryDataReader : public BinaryDataHandler {
 
 class BinaryDataWriter : public BinaryDataHandler {
   public:
-    BinaryDataWriter(FS_Archive archive_, std::string filePath_);
+    BinaryDataWriter(u32 expectedSize);
     ~BinaryDataWriter();
 
-    void Write(char buf);
-    void Write(u8 buf);
-    void Write(std::vector<char> buf);
-    void Write(std::vector<u8> buf);
-    void Write(s16 buf);
-    void Write(u16 buf);
-    void Write(s32 buf);
-    void Write(u32 buf);
+    void Write(char buffer);
+    void Write(u8 buffer);
+    void Write(std::vector<char>& buffer);
+    void Write(std::vector<u8>& buffer);
+    void Write(s16 buffer);
+    void Write(u16 buffer);
+    void Write(s32 buffer);
+    void Write(u32 buffer);
+
+    /// Opens file, writes rawBytes to it, and closes file immediately after.
+    void CreateFile(FS_Archive archive_, std::string filePath_);
 
   private:
+    /// If written bytes will exceed rawBytes size, reallocate and resize.
+    void SizeCheck(u32 bufferSize);
+    /// Updates position cursor, and updates totalSize if passed by position.
+    void UpdatePosition(u32 newPos);
+
+    u32 totalSize = 0;
 };

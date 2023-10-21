@@ -35,7 +35,6 @@ std::vector<u8> SequenceData::GetData(FS_Archive archive_) {
         if (dataType == DataType_Path && rawBytes.empty()) {
             BinaryDataReader br(archive_, filePath);
             rawBytes = br.ReadAll();
-            br.Close();
         }
         return rawBytes;
     }
@@ -139,7 +138,6 @@ void MusicCategoryNode::AddExternalSeqDatas(FS_Archive sdmcArchive) {
                     if (br.GetFileSize() >= 7) {
                         volume = br.ReadByte();
                     }
-                    br.Close();
                     break;
                 }
             }
