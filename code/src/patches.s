@@ -2230,6 +2230,24 @@ DodongoAfterSwallowBomb_patch:
 BabyDodongoAfterSwallowBomb_patch:
     bl hook_BabyDodongoAfterSwallowBomb
 
+.section .patch_ColorTest_One
+    bl hook_ColorTest
+
+.section .patch_ColorTest_Two
+    bl hook_ColorTest
+
+.section .patch_ColorTest_Three
+    bl hook_ColorTest
+
+.section .patch_ColorTest_SkipCheck
+    b 0x2D620C
+
+.section .patch_ColorTest_EnRd_SkipCheck_One
+    nop
+
+.section .patch_ColorTest_EnRd_SkipCheck_Two
+    nop
+
 @ ----------------------------------
 @ ----------------------------------
 

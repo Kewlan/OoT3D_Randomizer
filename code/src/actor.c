@@ -440,6 +440,9 @@ void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
     s32 shouldDrawSoulless = !EnemySouls_CheckSoulForActor(actor) &&   // soul not owned;
                              actor->scale.x != 0 &&                    // if scale is 0, enemy is invisible;
                              actor->id != 0x11D && actor->id != 0x06B; // flying traps will appear normal.
+
+    shouldDrawSoulless = 0;
+
     if (shouldDrawSoulless && (PauseContext_GetState() == 0)) {
         s32 velFrameIdx = (rGameplayFrames % 16);
         s32 accFrameIdx = (rGameplayFrames % 4);
@@ -472,4 +475,13 @@ s32 Actor_CollisionATvsAC(Collider* at, Collider* ac) {
     }
 
     return 1; // continue as normal
+}
+
+void Actor_ColorTest(Color_RGBAf* color) {
+    CitraPrint("r{ %.2f }, g{ %.2f }, b{ %.2f }, a{ %.2f }", color->r, color->g, color->b, color->a);
+
+    color->r = 0.0f;
+    color->g = 0.0f;
+    color->b = 0.0f;
+    color->a = 0.0f;
 }

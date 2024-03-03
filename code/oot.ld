@@ -1600,6 +1600,30 @@ SECTIONS
 		*(.patch_CrouchStabHitbox)
 	}
 
+	.patch_ColorTest_One 0x2D6228 : {
+		*(.patch_ColorTest_One)
+	}
+
+	.patch_ColorTest_Two 0x2D62B8 : {
+		*(.patch_ColorTest_Two)
+	}
+
+	.patch_ColorTest_Three 0x2D63DC : {
+		*(.patch_ColorTest_Three)
+	}
+
+	.patch_ColorTest_SkipCheck 0x2D615C : {
+		*(.patch_ColorTest_SkipCheck)
+	}
+
+	.patch_ColorTest_EnRd_SkipCheck_One 0x14C048 : {
+		*(.patch_ColorTest_EnRd_SkipCheck_One)
+	}
+
+	.patch_ColorTest_EnRd_SkipCheck_Two 0x14C060 : {
+		*(.patch_ColorTest_EnRd_SkipCheck_Two)
+	}
+
 	. = 0x4C99A8;
 	. = ALIGN(4);
 	.loader : {

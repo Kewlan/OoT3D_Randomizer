@@ -2120,6 +2120,14 @@ hook_BabyDodongoAfterSwallowBomb:
     bne 0x1C4370
     bx lr
 
+.global hook_ColorTest
+hook_ColorTest:
+    push {r0-r12, lr}
+    mov r0,r2
+    bl Actor_ColorTest
+    pop {r0-r12, lr}
+    b 0x358964
+
 @ ----------------------------------
 @ ----------------------------------
 
